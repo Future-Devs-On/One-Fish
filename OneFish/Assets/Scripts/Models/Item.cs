@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum SlotTag { Peixe, None, Hand }
+public enum SlotTag { Peixe, None }
 [CreateAssetMenu(menuName = "OneFish/Item")]
 public class Item : ScriptableObject
 {

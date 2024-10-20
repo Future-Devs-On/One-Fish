@@ -8,7 +8,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public Item myItem { get; set; }
     public InventorySlot activeSlot { get; set; }
 
-    void awake()
+    void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         itemIcon = GetComponent<Image>();

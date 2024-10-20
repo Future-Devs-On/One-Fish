@@ -35,9 +35,11 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         myItem.transform.SetParent(transform);
         myItem.canvasGroup.blocksRaycasts = true;
 
+        /*
         if(myTag != SlotTag.None)
         {
             Inventory.Singleton.EquipEquipment(myTag, myItem);
         }
+        */
     }
 }
