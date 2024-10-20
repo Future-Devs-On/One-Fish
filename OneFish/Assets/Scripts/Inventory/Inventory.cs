@@ -8,21 +8,23 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] InventorySlot[] inventorySlots;
     [SerializeField] InventorySlot[] equipmentSlots;
+    
     [SerializeField] Transform draggablesTransform;
     [SerializeField] InventoryItem itemPrefab;
 
     [SerializeField] Item[] items;
 
-    [SerializeField] Button giveItemBtn;
+    //[SerializeField] Button giveItemBtn;
 
-    private void awake()
+    private void Awake()
     {
         Singleton = this;
-        giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
+        //giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(); });
     }
 
     private void Update()
     {
+
         if (carriedItem == null)
         {
             return;
@@ -42,17 +44,18 @@ public class Inventory : MonoBehaviour
 
             item.activeSlot.SetItem(carriedItem);
         }
-
+        /*
         if(item.activeSlot.myTag != SlotTag.None)
         {
             EquipEquipment(item.activeSlot.myTag, null);
         }
+        */
 
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
     }
-
+    /*
     public void EquipEquipment(SlotTag tag, InventoryItem item = null)
     {
         switch (tag)
@@ -69,9 +72,11 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
+    */
     
     public void SpawnInventoryItem(Item item = null)
     {
+
         Item _item = item;
         if(_item == null)
         {
