@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class GameManager : MonoBehaviour
     public Transform pauseM;
     public static bool paused;
     public GameObject Inv;
+
+    //Telas
+    public GameObject Tela_Options;
+
+
     private void Awake()
     {
         Singleton = this;
@@ -55,5 +61,19 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public void Options()
+    {
+        Tela_Options.SetActive(true);
+    }
 
+    public void Voltar_Options()
+    {
+        Tela_Options.SetActive(false);
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("Titulo");
+        PauseBtn();
+    }
 }
