@@ -5,6 +5,7 @@ using UnityEngine;
 public class FishingManager : MonoBehaviour
 {
     [Header("References")]
+    Inventory inventory;
     [SerializeField] private GameObject fishingBar;
 
     [Header("Fishs cronometer")]
@@ -61,7 +62,7 @@ public class FishingManager : MonoBehaviour
                 if (FishingBarMeter.Instance.isOnGreen)
                 {
                     Inv.gameObject.SetActive(true);
-                    Inventory.Singleton.SpawnInventoryItem();
+                    inventory.SpawnItem();
                     Debug.Log("Pescou");
                     Inv.gameObject.SetActive(false);
                     ButtonBar.anime.SetBool("isOpen", false);
