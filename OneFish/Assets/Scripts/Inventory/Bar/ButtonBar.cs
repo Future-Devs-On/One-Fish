@@ -23,7 +23,7 @@ public class ButtonBar : MonoBehaviour
 
     public void Bag()
     {
-        if(Input.GetKeyDown(KeyCode.E) && GameManager.paused == false) 
+        if(Input.GetKeyDown(KeyCode.Tab) && GameManager.paused == false) 
         {
             if(Inv.gameObject.activeSelf)
             {
