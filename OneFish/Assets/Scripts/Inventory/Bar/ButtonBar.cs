@@ -40,7 +40,7 @@ public class ButtonBar : MonoBehaviour
 
         
     }
-    public void BagBtnOpen()
+    /*public void BagBtnOpen()
     {
         if (Inv.gameObject.activeSelf)
         {
@@ -59,5 +59,5 @@ public class ButtonBar : MonoBehaviour
         
         anime.SetBool("isOpen", false);
         Inv.gameObject.SetActive(false);
-    }
+    }*/
 }
