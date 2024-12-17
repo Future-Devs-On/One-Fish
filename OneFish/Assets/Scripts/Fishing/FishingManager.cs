@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishingManager : MonoBehaviour
 {
     [Header("References")]
-    Inventory inventory;
+    public InventoryManager inventoryManager;
     [SerializeField] private GameObject fishingBar;
 
     [Header("Fishs cronometer")]
@@ -17,7 +17,7 @@ public class FishingManager : MonoBehaviour
     private float currentTimeForFishing;
     private bool fishInRod = false;
 
-    public GameObject Inv;
+    //public GameObject Inv;
 
     private void Start()
     {
@@ -61,15 +61,10 @@ public class FishingManager : MonoBehaviour
             {
                 if (FishingBarMeter.Instance.isOnGreen)
                 {
-                    Inv.gameObject.SetActive(true);
-                    inventory.SpawnItem();
-                    Debug.Log("Pescou");
-                    Inv.gameObject.SetActive(false);
-                    ButtonBar.anime.SetBool("isOpen", false);
+                    inventoryManager.AddRandomItemToInventory();
                 }
                 else
                 {
-
                     Debug.Log("O peixe fugiu");
                 }
 
