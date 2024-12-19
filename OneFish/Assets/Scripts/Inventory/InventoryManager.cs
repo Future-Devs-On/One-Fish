@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
-        GenerateSlots(); // Inicializa com 10 slots vazios
+        GenerateSlots(); 
     }
 
     // Método para gerar slots nas posições específicas

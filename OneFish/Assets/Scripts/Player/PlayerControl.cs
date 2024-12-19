@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-        
+    
     public float movSpeed;
     float speedX, speedY;
     public static bool canFish = false;
@@ -29,6 +29,7 @@ public class PlayerControl : MonoBehaviour
         Flip();
 
     }
+    
     void Move()
     {
         speedX = Input.GetAxisRaw("Horizontal");
@@ -99,6 +100,14 @@ public class PlayerControl : MonoBehaviour
         {
             canFish = false;
             Debug.Log("saiu");
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            Debug.Log("You shall not pass!!");
         }
     }
 
