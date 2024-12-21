@@ -85,34 +85,12 @@ public class PlayerControl : MonoBehaviour
             transform.localScale = ls;
         }
     }
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void canFishing()
     {
-        if(collision.gameObject.layer == 6)
-        {
-            canFish = true;
-            Debug.Log("area");
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 6)
-        {
-            canFish = false;
-            Debug.Log("saiu");
-        }
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 8)
-        {
-            Debug.Log("You shall not pass!!");
-        }
+        canFish = true;
     }
 
 
-        
         /*
         void FollowMouse()
         {
