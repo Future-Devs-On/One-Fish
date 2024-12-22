@@ -12,7 +12,11 @@ public class Interact : MonoBehaviour
     public GameObject Player;
     public GameObject ButtonZ;
 
-    // Update is called once per frame
+    void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
+    
     void Update()
     {
         interact();

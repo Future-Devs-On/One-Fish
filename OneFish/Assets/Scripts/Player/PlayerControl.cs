@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-        // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
 
@@ -85,9 +85,9 @@ public class PlayerControl : MonoBehaviour
             transform.localScale = ls;
         }
     }
-    public void canFishing()
+    public void AllowFish(bool canFishInArea)
     {
-        canFish = true;
+        canFish = canFishInArea;
     }
 
 

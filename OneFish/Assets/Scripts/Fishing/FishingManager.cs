@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class FishingManager : MonoBehaviour
 {
+    
     [Header("References")]
     public InventoryManager inventoryManager;
     [SerializeField] private GameObject fishingBar;
 
+
     [Header("Fishs cronometer")]
     [SerializeField] private float maxTimeBetweenFish = 3f;
     private float currentTimeBetweenFish;
+
 
     [Header("Fish in rod cronometer")]
     [SerializeField] private float maxTimeForFishing = 5f;
     private float currentTimeForFishing;
     private bool fishInRod = false;
 
-    //public GameObject Inv;
+    
 
     private void Start()
     {
@@ -25,10 +28,11 @@ public class FishingManager : MonoBehaviour
     }
 
     
-    private void Update()
+    public void Update()
     {
+        
         if(PlayerControl.canFish)
-        {
+        {    
             if (!fishInRod)
             {
                 RunFishCronometer();
@@ -81,11 +85,13 @@ public class FishingManager : MonoBehaviour
 
     private void FishingReset()
     {
+        
         fishInRod = false;
         currentTimeBetweenFish = maxTimeBetweenFish;
         currentTimeForFishing = maxTimeForFishing;
-
+        
         fishingBar.SetActive(false);
+        
     }
 
 }
