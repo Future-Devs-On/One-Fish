@@ -9,6 +9,7 @@ public class FishingArea : MonoBehaviour
     private GameObject areaObject;
     PlayerControl playerControl;
     public GameObject FishingAreaPrefab;
+    public GameObject ButtonZ;
 
     [Header("Lists")]
     public List<Vector2> AreasPositions;
@@ -21,7 +22,6 @@ public class FishingArea : MonoBehaviour
 
     void Start()
     {
-        
         Player = GameObject.FindGameObjectWithTag("Player"); // Identifica o player via script
         playerControl = Player.GetComponent<PlayerControl>(); // Pega o script dentro o player que seja do tipo PlayerControl
         GenerateAreas();
@@ -80,6 +80,7 @@ public class FishingArea : MonoBehaviour
                 else
                 {
                     playerControl.AllowFish(false);
+                    
                     Debug.Log($"Área {area.name} esgotada para pesca.");
                 }
 

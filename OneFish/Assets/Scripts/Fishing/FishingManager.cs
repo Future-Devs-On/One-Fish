@@ -8,6 +8,7 @@ public class FishingManager : MonoBehaviour
     [Header("References")]
     public InventoryManager inventoryManager;
     [SerializeField] private GameObject fishingBar;
+    
 
 
     [Header("Fishs cronometer")]
@@ -18,13 +19,14 @@ public class FishingManager : MonoBehaviour
     [Header("Fish in rod cronometer")]
     [SerializeField] private float maxTimeForFishing = 5f;
     private float currentTimeForFishing;
-    private bool fishInRod = false;
-
+    private bool fishInRod;
     
+
 
     private void Start()
     {
         FishingReset();
+        
     }
 
     
@@ -36,6 +38,7 @@ public class FishingManager : MonoBehaviour
             if (!fishInRod)
             {
                 RunFishCronometer();
+                
             }
             else
             {
@@ -56,8 +59,9 @@ public class FishingManager : MonoBehaviour
 
     private void RunFishingCronometer()
     {
+        
         currentTimeForFishing -= Time.deltaTime;
-        if(currentTimeForFishing > 0)
+        if (currentTimeForFishing > 0)
         {
             fishingBar.SetActive(true);
 
@@ -66,12 +70,14 @@ public class FishingManager : MonoBehaviour
                 if (FishingBarMeter.Instance.isOnGreen)
                 {
                     inventoryManager.AddRandomItemToInventory();
+                    
                 }
                 else
                 {
                     Debug.Log("O peixe fugiu");
                 }
-
+                
+                PlayerControl.canFish = false;
                 FishingReset();
             }
         }

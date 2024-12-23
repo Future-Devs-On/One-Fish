@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Interact : MonoBehaviour
 {
     bool Can;
-    bool isInteract;
+    public static bool isInteract;
     public UnityEvent Event;
     public GameObject Player;
     public GameObject ButtonZ;
@@ -15,6 +15,8 @@ public class Interact : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        
+        
     }
     
     void Update()
