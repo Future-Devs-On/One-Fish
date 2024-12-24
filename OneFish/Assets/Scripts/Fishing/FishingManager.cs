@@ -8,6 +8,7 @@ public class FishingManager : MonoBehaviour
     [Header("References")]
     public InventoryManager inventoryManager;
     [SerializeField] private GameObject fishingBar;
+    public FishingTextManager fishingText; // Referência ao script FishingTextManager
     
 
 
@@ -74,7 +75,7 @@ public class FishingManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("O peixe fugiu");
+                    fishingText.ShowFishingMessage($"O peixe fugiu!");
                 }
                 
                 PlayerControl.canFish = false;
@@ -83,7 +84,7 @@ public class FishingManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("acabou o tempo");
+            fishingText.ShowFishingMessage($"Acabou o tempo!");
 
             FishingReset();
         }

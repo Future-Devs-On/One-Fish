@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    [Header("References")]
     public GameObject slotPrefab;       // Prefab do slot
     public Transform inventoryPanel;    // Painel onde os slots serão gerados
+    public FishingTextManager fishingText; // Referência ao script FishingTextManager
+
+    [Header("Lists")]
     public List<Vector2> slotPositions;    // Lista de posições específicas para os slots
     public List<Item> itemsToInstantiate = new List<Item>(); // Lista de itens disponíveis
-
     private List<Slot> slots = new List<Slot>();
 
     void Start()
@@ -43,6 +46,7 @@ public class InventoryManager : MonoBehaviour
     // Método para instanciar um item aleatório no próximo slot disponível
     public void AddRandomItemToInventory()
     {
+        
         if (itemsToInstantiate.Count == 0) return;
         
 
@@ -53,10 +57,11 @@ public class InventoryManager : MonoBehaviour
             {
                 slot.SetItem(randomItem); // Define o item no slot
                 Debug.Log($"Item {randomItem.itemName} adicionado ao inventário.");
+                fishingText.ShowFishingMessage($"você pescou {randomItem.itemName}!");
                 return;
             }
         }
-
+        fishingText.ShowFishingMessage($"Inventário cheio!");
         Debug.Log("Inventário cheio!");
         
     }
