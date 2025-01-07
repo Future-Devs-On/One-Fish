@@ -11,7 +11,7 @@ public class FishingArea : MonoBehaviour
 
     [Header("References")]
     private GameObject Player;
-    PlayerControl playerControl;
+    Player playerScript;
     public GameObject ButtonZ;
 
     [Header("Lists")]
@@ -25,7 +25,7 @@ public class FishingArea : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player"); // Identifica o player via script
-        playerControl = Player.GetComponent<PlayerControl>(); // Pega o script dentro o player que seja do tipo PlayerControl
+        playerScript = Player.GetComponent<Player>(); // Pega o script dentro o player que seja do tipo Player
         GenerateAreas();
     }
 
@@ -75,13 +75,13 @@ public class FishingArea : MonoBehaviour
                 // Verifica a quantidade de vezes que o minigame aconteceu
                 if (fishingAttempts[area] < maxFishingAttemptsPerArea)
                 {
-                    playerControl.AllowFish(true); 
+                    playerScript.AllowFish(true); 
                     fishingAttempts[area]++;
                     Debug.Log($"Tentativas restantes para {area.name}: {maxFishingAttemptsPerArea - fishingAttempts[area]}");
                 }
                 else
                 {
-                    playerControl.AllowFish(false);
+                    playerScript.AllowFish(false);
 
                     fishingText.ShowFishingMessage($"Área esgotada!");
                     Debug.Log($"Área {area.name} esgotada para pesca.");

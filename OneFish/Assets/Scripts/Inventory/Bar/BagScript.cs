@@ -5,6 +5,7 @@ using UnityEngine;
 public class BagScript : MonoBehaviour
 {
     public GameObject Inv;
+   
     public static Animator anime;
     
     void Start()
@@ -22,7 +23,7 @@ public class BagScript : MonoBehaviour
 
     public void Bag()
     {
-        if(Input.GetKeyDown(KeyCode.Tab) && GameManager.paused == false) 
+        if(Input.GetKeyDown(KeyCode.Tab) && GameManager.isPaused == false) 
         {
             if(Inv.gameObject.activeSelf)
             {

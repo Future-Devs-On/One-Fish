@@ -34,7 +34,7 @@ public class FishingManager : MonoBehaviour
     public void Update()
     {
         
-        if(PlayerControl.canFish)
+        if(Player.canFish)
         {    
             if (!fishInRod)
             {
@@ -78,7 +78,7 @@ public class FishingManager : MonoBehaviour
                     fishingText.ShowFishingMessage($"O peixe fugiu!");
                 }
                 
-                PlayerControl.canFish = false;
+                Player.canFish = false;
                 FishingReset();
             }
         }
