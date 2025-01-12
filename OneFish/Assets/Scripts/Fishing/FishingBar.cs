@@ -4,34 +4,55 @@ using UnityEngine;
 
 public class FishingBar : MonoBehaviour
 {
-    [Header("BlueBar Movement")]
+    [Header("Bars Movement")]
     [SerializeField] private GameObject blueBar;
-    [SerializeField] private float movSpeed = 2f;
+    [SerializeField] private GameObject greenBar;
+    [SerializeField] private float blueMovSpeed = 2f;
+    [SerializeField] private float greenMovSpeed = 2f;
 
-    [Header("BlueBar Path")]
+    [Header("Bars Path")]
     [SerializeField] private Transform[] pathPoints;
-    private int currentPoint;
+    private int currentGreenPoint;
+    private int currentBluePoint;
+
     private void Start()
     {
-        currentPoint = 0;
-        blueBar.transform.position = pathPoints[currentPoint].position;
+        currentBluePoint = 0;
+        currentGreenPoint = 0;
+        blueBar.transform.position = pathPoints[currentBluePoint].position;
+        greenBar.transform.position = pathPoints[currentGreenPoint].position;
     }
 
     private void Update()
     {
         MoveBlueBar();
+        MoveGreenBar();
     }
 
     private void MoveBlueBar()
     {
-        blueBar.transform.position = Vector2.MoveTowards(blueBar.transform.position, pathPoints[currentPoint].position, movSpeed * Time.deltaTime);
+        blueBar.transform.position = Vector2.MoveTowards(blueBar.transform.position, pathPoints[currentBluePoint].position, blueMovSpeed * Time.deltaTime);
 
-        if (blueBar.transform.position == pathPoints[currentPoint].position)
+        if (blueBar.transform.position == pathPoints[currentBluePoint].position)
         {
-            currentPoint += 1;
-            if (currentPoint >= pathPoints.Length)
+            currentBluePoint += 1;
+            if (currentBluePoint >= pathPoints.Length)
             {
-                currentPoint = 0;
+                currentBluePoint = 0;
+            }
+        }
+    }
+
+    private void MoveGreenBar()
+    {
+        greenBar.transform.position = Vector2.MoveTowards(greenBar.transform.position, pathPoints[currentGreenPoint].position, greenMovSpeed * Time.deltaTime);
+
+        if (greenBar.transform.position == pathPoints[currentGreenPoint].position)
+        {
+            currentGreenPoint += 1;
+            if (currentGreenPoint >= pathPoints.Length)
+            {
+                currentGreenPoint = 0;
             }
         }
     }

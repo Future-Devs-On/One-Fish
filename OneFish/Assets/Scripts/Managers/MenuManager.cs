@@ -12,6 +12,10 @@ public class MenuManager : MonoBehaviour
     public GameObject Tela_Configs;
     public GameObject Tela_Credits;
 
+    void Start()
+    {
+        Tela_Configs.SetActive(false);
+    }
 
     //Carregar menus
     public void PlayGame()

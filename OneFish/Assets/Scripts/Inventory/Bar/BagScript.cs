@@ -23,7 +23,7 @@ public class BagScript : MonoBehaviour
 
     public void Bag()
     {
-        if(Input.GetKeyDown(KeyCode.Tab) && GameManager.isPaused == false) 
+        if(Input.GetKeyDown(KeyCode.E) && GameManager.isPaused == false) 
         {
             if(Inv.gameObject.activeSelf)
             {

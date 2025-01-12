@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class FishingArea : MonoBehaviour
 {
     [Header("Fish References")]
     public GameObject FishingAreaPrefab;
     private GameObject areaObject;
+    public Tile fishAreaTile;
     public FishingTextManager fishingText; // Referência ao script FishingTextManager
 
     [Header("References")]
@@ -17,9 +19,11 @@ public class FishingArea : MonoBehaviour
     [Header("Lists")]
     public List<Vector2> AreasPositions;
     private List<Area> Areas = new List<Area>();
-    public Dictionary<GameObject, int> fishingAttempts = new Dictionary<GameObject, int>();
+    public Dictionary<Vector2, int> fishingAttempts = new Dictionary<Vector2, int>();
 
-    [Header("Fishing Settings")]
+    [Header("Settings")]
+    private List<Vector3Int> tilePositions;
+    public Tilemap tilemap;
     public int maxFishingAttemptsPerArea = 5; // Limite de tentativas por área
 
     void Start()
@@ -31,67 +35,72 @@ public class FishingArea : MonoBehaviour
 
     void GenerateAreas()
     {
-        for(int i = 0; i < AreasPositions.Count; i++)
-        {
-            areaObject = Instantiate(FishingAreaPrefab); // Instancia a area
-            areaObject.GetComponent<RectTransform>().anchoredPosition = AreasPositions[i]; // diz qual posição a area deve ser instanciada de acordo com as posiçoes da lista
-            Area area = areaObject.GetComponent<Area>(); // Pega o script do tipo Area 
+        tilePositions = new List<Vector3Int>(); // Inicializa a lista de Vector3Int
 
-            
-            if(area != null)
+        for (int i = 0; i < AreasPositions.Count; i++)
+        {
+            Vector2 areaPosition = AreasPositions[i];
+
+            // Converte Vector2 para Vector3Int e adiciona à lista
+            Vector3Int tilePosition = new Vector3Int(
+                Mathf.RoundToInt(areaPosition.x),
+                Mathf.RoundToInt(areaPosition.y),
+                0 // Z pode ser fixo ou outro valor, dependendo da sua lógica
+            );
+            tilePositions.Add(tilePosition);
+
+            // Define o tile no Tilemap
+            tilemap.SetTile(tilePosition, fishAreaTile);
+
+            // Instancia a área de pesca
+            areaObject = Instantiate(FishingAreaPrefab);
+            areaObject.GetComponent<RectTransform>().anchoredPosition = areaPosition; // diz qual posição a area deve ser instanciada de acordo com as posiçoes da lista
+
+            // Configura o script da área
+            Area area = areaObject.GetComponent<Area>();
+            if (area != null)
             {
                 Areas.Add(area);
-                
+
             }
 
-            // Configurar identificador único
-            FishingAreaId identifier = areaObject.AddComponent<FishingAreaId>();
-            identifier.id = i;
+            
+            fishingAttempts[areaPosition] = 0;
 
-            // Usar ID como chave no dicionário
-            fishingAttempts[areaObject] = 0;
 
             Interact interact = areaObject.GetComponent<Interact>(); // Referencia ao script interact dentro do GameObject instanciado da area.
             if (interact != null)
             {
                 // Adiciona a função ao evento
-                interact.Event.AddListener(() => StartFishing(identifier.id));
-            }
-        }  
-        
-    }
-
-    private void StartFishing(int areaId)
-    {
-        
-        foreach (var attempts in fishingAttempts)
-        {
-            // Verifica se o attempts possui o Id igual ao areaId
-            if (attempts.Key.GetComponent<FishingAreaId>().id == areaId)
-            {
-                // Atribui o valor de attempts para o GameObject
-                GameObject area = attempts.Key;
-
-                // Verifica a quantidade de vezes que o minigame aconteceu
-                if (fishingAttempts[area] < maxFishingAttemptsPerArea)
-                {
-                    playerScript.AllowFish(true); 
-                    fishingAttempts[area]++;
-                    Debug.Log($"Tentativas restantes para {area.name}: {maxFishingAttemptsPerArea - fishingAttempts[area]}");
-                }
-                else
-                {
-                    playerScript.AllowFish(false);
-
-                    fishingText.ShowFishingMessage($"Área esgotada!");
-                    Debug.Log($"Área {area.name} esgotada para pesca.");
-                }
-
-                return;
+                Vector2 capturedPosition = areaPosition;
+                interact.Event.AddListener(() => StartFishing(capturedPosition));
             }
         }
 
-        Debug.LogError($"A área com ID {areaId} não foi encontrada no dicionário!");
     }
-    
+
+    private void StartFishing(Vector2 areaPosition)
+    {
+        if (fishingAttempts.TryGetValue(areaPosition, out int currentAttempts))
+        {
+            // Verifica a quantidade de vezes que o minigame aconteceu
+            if (currentAttempts < maxFishingAttemptsPerArea)
+            {
+                playerScript.AllowFish(true);
+                fishingAttempts[areaPosition]++;
+                Debug.Log($"Tentativas restantes para posição {areaPosition}: {maxFishingAttemptsPerArea - fishingAttempts[areaPosition]}");
+            }
+            else
+            {
+                playerScript.AllowFish(false);
+                fishingText.ShowFishingMessage($"Área esgotada!");
+                Debug.Log($"Área na posição {areaPosition} esgotada para pesca.");
+            }
+        }
+        else
+        {
+            Debug.LogError($"A posição {areaPosition} não foi encontrada no dicionário!");
+        }
+        
+    }
 }
